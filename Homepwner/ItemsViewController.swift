@@ -37,13 +37,16 @@ class ItemsViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "UITableViewCell", for: indexPath)
         
         if indexPath.section == 0 {
-            print("indexPath.row \(indexPath.row)")
-            
+
             if indexPath.row < moreThan50.count {
                 let item = moreThan50[indexPath.row]
                 
                 cell.textLabel?.text = item.name
                 cell.detailTextLabel?.text = "$\(item.valueInDollars)"
+                if let fontName = cell.textLabel?.font!.fontName {
+                    cell.textLabel?.font = UIFont(name: fontName, size: 20)
+                    cell.detailTextLabel?.font = UIFont(name: fontName, size: 20)
+                }
                 
             } else {
                 cell.textLabel?.text = "No more items!"
@@ -57,6 +60,10 @@ class ItemsViewController: UITableViewController {
                 
                 cell.textLabel?.text = item.name
                 cell.detailTextLabel?.text = "$\(item.valueInDollars)"
+                if let fontName = cell.textLabel?.font!.fontName {
+                    cell.textLabel?.font = UIFont(name: fontName, size: 20)
+                    cell.detailTextLabel?.font = UIFont(name: fontName, size: 20)
+                }
                 
             } else {
                 cell.textLabel?.text = "No more items!"
@@ -65,6 +72,26 @@ class ItemsViewController: UITableViewController {
         }
         
         return cell
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        var height = CGFloat()
+        
+        if indexPath.section == 0 {
+            if indexPath.row < moreThan50.count {
+                height = 60
+            } else {
+                height = 44
+            }
+        }
+        else if indexPath.section == 1 {
+            if indexPath.row < theRest.count {
+                height = 60
+            } else {
+                height = 44
+            }
+        }
+        return height
     }
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
@@ -78,6 +105,10 @@ class ItemsViewController: UITableViewController {
         return headerString
     }
     
+    override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        cell.backgroundColor = UIColor(white: 1, alpha: 0.5)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -87,6 +118,10 @@ class ItemsViewController: UITableViewController {
         let insets = UIEdgeInsetsMake(statusBarHeight, 0, 0, 0)
         tableView.contentInset =  insets
         tableView.scrollIndicatorInsets = insets
+        
+        let backgroundImage = UIImage(named: "tableViewSwiftLogo")
+        let backgroundImageView = UIImageView(image: backgroundImage)
+        backgroundImageView.contentMode = .scaleAspectFit
+        tableView.backgroundView = backgroundImageView
     }
 }
-
