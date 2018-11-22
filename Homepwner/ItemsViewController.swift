@@ -24,9 +24,9 @@ class ItemsViewController: UITableViewController {
         var rowCount: Int = 0
         
         if section == 0 {
-            rowCount = moreThan50.count
+            rowCount = moreThan50.count + 1
         } else if section == 1 {
-            rowCount = theRest.count
+            rowCount = theRest.count + 1
         }
         return rowCount
     }
@@ -37,17 +37,31 @@ class ItemsViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "UITableViewCell", for: indexPath)
         
         if indexPath.section == 0 {
-            let item = moreThan50[indexPath.row]
+            print("indexPath.row \(indexPath.row)")
             
-            cell.textLabel?.text = item.name
-            cell.detailTextLabel?.text = "$\(item.valueInDollars)"
-
+            if indexPath.row < moreThan50.count {
+                let item = moreThan50[indexPath.row]
+                
+                cell.textLabel?.text = item.name
+                cell.detailTextLabel?.text = "$\(item.valueInDollars)"
+                
+            } else {
+                cell.textLabel?.text = "No more items!"
+                cell.detailTextLabel?.text = "End of More than 50 list"
+            }
         }
         else if indexPath.section == 1 {
-            let item = theRest[indexPath.row]
-        
-            cell.textLabel?.text = item.name
-            cell.detailTextLabel?.text = "$\(item.valueInDollars)"
+            
+            if indexPath.row < theRest.count {
+                let item = theRest[indexPath.row]
+                
+                cell.textLabel?.text = item.name
+                cell.detailTextLabel?.text = "$\(item.valueInDollars)"
+                
+            } else {
+                cell.textLabel?.text = "No more items!"
+                cell.detailTextLabel?.text = "End of The Rest list"
+            }
         }
         
         return cell
@@ -75,3 +89,4 @@ class ItemsViewController: UITableViewController {
         tableView.scrollIndicatorInsets = insets
     }
 }
+
