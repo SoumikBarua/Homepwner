@@ -78,8 +78,9 @@ class ItemsViewController: UITableViewController {
         }
     }
     
+    //
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return itemStore.allItems.count
+        return itemStore.allItems.count + 1
     }
     
     override func tableView(_ tableView: UITableView, titleForDeleteConfirmationButtonForRowAt indexPath: IndexPath) -> String? {
@@ -92,13 +93,43 @@ class ItemsViewController: UITableViewController {
         // Get a new or recycled cell
         let cell = tableView.dequeueReusableCell(withIdentifier: "UITableViewCell", for: indexPath)
         
-
-        let item = itemStore.allItems[indexPath.row]
+        if indexPath.row < itemStore.allItems.count {
+            let item = itemStore.allItems[indexPath.row]
             
-        cell.textLabel?.text = item.name
-        cell.detailTextLabel?.text = "$\(item.valueInDollars)"
+            cell.textLabel?.text = item.name
+            cell.detailTextLabel?.text = "$\(item.valueInDollars)"
+        } else {
+            cell.textLabel?.text = "No more items!"
+            cell.detailTextLabel?.text = "End of list"
+        }
         
         return cell
+    }
+    
+    /// This UITableViewDataSource method is being implemented to prevent the reordering of the final row
+    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
+        if indexPath.row == itemStore.allItems.count {
+            return false
+        }
+        return true
+    }
+    
+    /// This UITableViewDataSource method is being implemented to prevent the deletion of the final row
+    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        if indexPath.row == itemStore.allItems.count {
+            return false
+        }
+        return true
+    }
+    
+    /// This UITableViewDelegate method is being implemented to prevent other rows from being moved under the final row
+    override func tableView(_ tableView: UITableView, targetIndexPathForMoveFromRowAt sourceIndexPath: IndexPath, toProposedIndexPath proposedDestinationIndexPath: IndexPath) -> IndexPath {
+        var indexPath = IndexPath(row: proposedDestinationIndexPath.row, section: proposedDestinationIndexPath.section)
+        if proposedDestinationIndexPath.row == itemStore.allItems.count {
+            indexPath.row = itemStore.allItems.count - 1
+            return indexPath
+        }
+        return indexPath
     }
     
     override func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
