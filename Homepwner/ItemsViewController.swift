@@ -14,8 +14,6 @@ class ItemsViewController: UITableViewController {
     
     
     @IBAction func addNewItem(_ sender: UIButton) {
-        print("Came to addNewItem method")
-        
         // Create a new item and add it to the store
         let newItem = itemStore.createItem()
         
@@ -30,9 +28,7 @@ class ItemsViewController: UITableViewController {
         
     }
     
-    @IBAction func toggleEditingMode(_ sender: UIButton) {
-        print("Came to toggleEditingMode method")
-        
+    @IBAction func toggleEditingMode(_ sender: UIButton) {        
         // If we are currently in editing mode ...
         if isEditing {
             // Change text of the button to inform user of the state
@@ -91,16 +87,19 @@ class ItemsViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         // Get a new or recycled cell
-        let cell = tableView.dequeueReusableCell(withIdentifier: "UITableViewCell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "ItemCell", for: indexPath) as! ItemCell
         
         if indexPath.row < itemStore.allItems.count {
             let item = itemStore.allItems[indexPath.row]
             
-            cell.textLabel?.text = item.name
-            cell.detailTextLabel?.text = "$\(item.valueInDollars)"
+            cell.nameLabel.text = item.name
+            cell.valueLabel.text = "$\(item.valueInDollars)"
+            cell.serialNumberLabel.text = item.serialNumber
+            cell.value = item.valueInDollars
         } else {
-            cell.textLabel?.text = "No more items!"
-            cell.detailTextLabel?.text = "End of list"
+            cell.nameLabel.text = "No more items!"
+            cell.valueLabel.text = "End of list"
+            cell.serialNumberLabel.text = "00000000"
         }
         
         return cell
@@ -146,5 +145,8 @@ class ItemsViewController: UITableViewController {
         let insets = UIEdgeInsetsMake(statusBarHeight, 0, 0, 0)
         tableView.contentInset =  insets
         tableView.scrollIndicatorInsets = insets
+        
+        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.estimatedRowHeight = 65
     }
 }

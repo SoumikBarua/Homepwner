@@ -16,6 +16,7 @@
 		326E8842215860BA0090C18C /* HomepwnerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 326E8841215860BA0090C18C /* HomepwnerUITests.swift */; };
 		326E8850215863860090C18C /* ItemsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 326E884F215863860090C18C /* ItemsViewController.swift */; };
 		326E8852215864DD0090C18C /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 326E8851215864DD0090C18C /* Item.swift */; };
+		3298DA3A21A7C5EA00B9098A /* ItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3298DA3921A7C5EA00B9098A /* ItemCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +52,7 @@
 		326E8843215860BA0090C18C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		326E884F215863860090C18C /* ItemsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemsViewController.swift; sourceTree = "<group>"; };
 		326E8851215864DD0090C18C /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
+		3298DA3921A7C5EA00B9098A /* ItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,6 +105,7 @@
 			children = (
 				326E8821215860B90090C18C /* AppDelegate.swift */,
 				326E884F215863860090C18C /* ItemsViewController.swift */,
+				3298DA3921A7C5EA00B9098A /* ItemCell.swift */,
 				326E8851215864DD0090C18C /* Item.swift */,
 				326E8825215860B90090C18C /* Main.storyboard */,
 				3255C9EF2158A11C0069201F /* ItemStore.swift */,
@@ -266,6 +269,7 @@
 				326E8852215864DD0090C18C /* Item.swift in Sources */,
 				3255C9F02158A11C0069201F /* ItemStore.swift in Sources */,
 				326E8822215860B90090C18C /* AppDelegate.swift in Sources */,
+				3298DA3A21A7C5EA00B9098A /* ItemCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
