@@ -54,7 +54,7 @@ class ItemsViewController: UITableViewController {
         if editingStyle == .delete {
             let item = itemStore.allItems[indexPath.row]
             
-            let title = "Delete \(item.name)?"
+            let title = "Remove \(item.name)?"
             let message = "Are you sure you want to delete this item?"
             
             let ac = UIAlertController(title: title, message: message, preferredStyle: .actionSheet)
@@ -62,7 +62,7 @@ class ItemsViewController: UITableViewController {
             let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
             ac.addAction(cancelAction)
             
-            let deleteAction = UIAlertAction(title: "Delete", style: .destructive, handler: {
+            let deleteAction = UIAlertAction(title: "Remove", style: .destructive, handler: {
                 (action) -> Void in
                 
                 //Remove the item from the store
@@ -80,6 +80,11 @@ class ItemsViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return itemStore.allItems.count
+    }
+    
+    override func tableView(_ tableView: UITableView, titleForDeleteConfirmationButtonForRowAt indexPath: IndexPath) -> String? {
+        // This is for changing the title of the red delete button that appears to the right of the row
+        return "Remove"
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
