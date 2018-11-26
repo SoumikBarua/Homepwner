@@ -8,18 +8,21 @@
 
 import UIKit
 
-class DetailViewController: UIViewController, UITextFieldDelegate {
+class DetailViewController: UIViewController, UITextFieldDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
     
     @IBOutlet var nameField: CustomTextField!
     @IBOutlet var serialNumberField: CustomTextField!
     @IBOutlet var valueField: CustomTextField!
     @IBOutlet var dateLabel: UILabel!
+    @IBOutlet var imageView: UIImageView!
     
     var item: Item! {
         didSet {
             navigationItem.title = item.name
         }
     }
+    
+    var imageStore: ImageStore!
     
     let numberFormatter: NumberFormatter = {
        let nf = NumberFormatter()
@@ -45,6 +48,14 @@ class DetailViewController: UIViewController, UITextFieldDelegate {
         valueField.text = numberFormatter.string(from: NSNumber(value: item.valueInDollars))
         dateLabel.text = dateFormatter.string(from: item.dateCreated)
         valueField.keyboardType = .numberPad
+        
+        // Get the item key
+        let key = item.itemKey
+        
+        // If there is an associated image with the item, display it on the image view
+        if let imageToDisplay = imageStore.image(forKey: key) {
+            imageView.image = imageToDisplay
+        }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -73,7 +84,7 @@ class DetailViewController: UIViewController, UITextFieldDelegate {
         view.endEditing(true)
     }
     
-    /// This is prepare for the button segue
+    /// Preparing for the change date button segue
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         switch segue.identifier {
         case "showDate"?:
@@ -83,6 +94,42 @@ class DetailViewController: UIViewController, UITextFieldDelegate {
             preconditionFailure("Unexpected segue identifier")
         }
     }
+    
+    
+    /// This is for camera bar button item action
+    @IBAction func takePicture(_ sender: UIBarButtonItem) {
+        let imagePicker = UIImagePickerController()
+        
+        // If the device has a camera, take a picture; otherwise, just pick from photo library
+        if UIImagePickerController.isSourceTypeAvailable(.camera) {
+            imagePicker.sourceType = .camera
+        } else {
+            imagePicker.sourceType = .photoLibrary
+        }
+        
+        imagePicker.delegate = self
+        
+        // Place the image picker on the screen
+        present(imagePicker, animated: true, completion: nil)
+    }
+    
+    /// This is used to save the reference to the pickage image
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        
+        // Get picked image from info dictionary
+        let image = info[UIImagePickerControllerOriginalImage] as! UIImage
+        
+        // Store the image in the ImageStore for the item's key
+        imageStore.setImage(image, forkey: item.itemKey)
+        
+        // Put that image on the screen in the image view
+        imageView.image = image
+        
+        // Take image picker off the screen
+        // Must call this dismiss method
+        dismiss(animated: true, completion: nil)
+    }
+    
 }
 
 class CustomTextField: UITextField {
