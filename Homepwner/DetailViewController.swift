@@ -15,6 +15,7 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UINavigationC
     @IBOutlet var valueField: CustomTextField!
     @IBOutlet var dateLabel: UILabel!
     @IBOutlet var imageView: UIImageView!
+    @IBOutlet var trashBarButtonItem: UIBarButtonItem!
     
     var item: Item! {
         didSet {
@@ -55,6 +56,9 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UINavigationC
         // If there is an associated image with the item, display it on the image view
         if let imageToDisplay = imageStore.image(forKey: key) {
             imageView.image = imageToDisplay
+            trashBarButtonItem.isEnabled = true
+        } else {
+            trashBarButtonItem.isEnabled = false
         }
     }
     
@@ -108,16 +112,32 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UINavigationC
         }
         
         imagePicker.delegate = self
+        // Allowing the user to edit the image
+        imagePicker.allowsEditing = true
         
         // Place the image picker on the screen
         present(imagePicker, animated: true, completion: nil)
     }
     
+    /// This is for image deletion bar button item
+    @IBAction func removeImage(_ sender: UIBarButtonItem) {
+        // Since this action was triggered, the item must have an image
+        
+        // Delete the image from the image store
+        imageStore.deleteImage(forKey: item.itemKey)
+        
+        // Remove the image from the image view
+        imageView.image = nil
+        
+        trashBarButtonItem.isEnabled = false
+    }
+    
+    
     /// This is used to save the reference to the pickage image
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         
-        // Get picked image from info dictionary
-        let image = info[UIImagePickerControllerOriginalImage] as! UIImage
+        // Get picked/edited image from info dictionary
+        let image = info[UIImagePickerControllerEditedImage] as! UIImage
         
         // Store the image in the ImageStore for the item's key
         imageStore.setImage(image, forkey: item.itemKey)

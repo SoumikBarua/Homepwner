@@ -190,6 +190,12 @@
                                             <action selector="takePicture:" destination="ii9-2B-FBI" id="aur-u6-ZEJ"/>
                                         </connections>
                                     </barButtonItem>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="ucS-ri-cbP"/>
+                                    <barButtonItem systemItem="trash" id="QHK-Kr-jYX">
+                                        <connections>
+                                            <action selector="removeImage:" destination="ii9-2B-FBI" id="C7e-mi-mf6"/>
+                                        </connections>
+                                    </barButtonItem>
                                 </items>
                             </toolbar>
                         </subviews>
@@ -214,6 +220,7 @@
                         <outlet property="imageView" destination="voL-UP-wOo" id="r5a-dz-2Tz"/>
                         <outlet property="nameField" destination="ez8-Ab-Dgb" id="iSX-yd-HRS"/>
                         <outlet property="serialNumberField" destination="ydk-NR-YkR" id="2Is-vg-jsb"/>
+                        <outlet property="trashBarButtonItem" destination="QHK-Kr-jYX" id="rAF-Tq-TRg"/>
                         <outlet property="valueField" destination="z2i-Uc-NWd" id="Cai-fY-ZWu"/>
                     </connections>
                 </viewController>
