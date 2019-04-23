@@ -34,7 +34,7 @@ class ItemsViewController: UITableViewController {
         navigationItem.leftBarButtonItem = editButtonItem
     }
     
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         // If the tableView is asking to commit a delete command...
         if editingStyle == .delete {
             let item = itemStore.allItems[indexPath.row]
@@ -131,7 +131,7 @@ class ItemsViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 65
     }
     

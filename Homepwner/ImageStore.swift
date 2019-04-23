@@ -19,7 +19,7 @@ class ImageStore {
         let url = imageURL(forKey: key)
         
         // Turn image into PNG data
-        if let data = UIImagePNGRepresentation(image) {
+        if let data = image.pngData() {
             // Write it to full URL
             let _ = try? data.write(to: url, options: [.atomic])
         }
