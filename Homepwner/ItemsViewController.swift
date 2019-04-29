@@ -18,7 +18,7 @@ class ItemsViewController: UITableViewController {
         let newItem = itemStore.createItem()
         
         // Figure out where that item is in array
-        if let index = itemStore.allItems.index(of: newItem) {
+        if let index = itemStore.allItems.firstIndex(of: newItem) {
             let indexPath = IndexPath(row: index, section: 0)
             
             // Insert this new row into the table
