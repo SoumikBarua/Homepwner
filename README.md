@@ -14,6 +14,7 @@ This GIF show the app in action (adding items, editing items, reordering items, 
 
 ## Lessons Learned
 1. An app's life cycle consists of the different states that it transitions through. These states are **not running**, **active**, **inactive**, **background** and **suspended**. Here is a table that highlight the characteristics of these states:
+
    | State           | Visible          | Receives events  | Executes Code |
    | :------------: | :-------------:| :------------------: |:-----------------: |
    | Not running | No               | No                        | No                     |
@@ -21,6 +22,7 @@ This GIF show the app in action (adding items, editing items, reordering items, 
    | Inactive       | Mostly         | No                        | Yes                    |
    | Background| No               | No                        | Yes                    |
    | Suspended | No               | No                        | No                     |
+   
    All of these states are handled by the **UIApplicationDelegate** protocol methods in a typical **AppDelegate.swift**.
 2. To simply display a list of items, people or books, **UITableView** comes in very handy as it shows data in a column split up into many rows.
 3. A **UITableView** needs a view controller, a delegate and a data source, and all of these roles could be fulfilled by a **UITableViewController**. The **view** property of a **UITableViewController** object is an instance of **UITableView** by default.
