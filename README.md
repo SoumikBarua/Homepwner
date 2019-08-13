@@ -80,3 +80,19 @@ This GIF show the app in action (adding items, editing items, reordering items, 
    `Library/Preferences/` is where any user preferences are saved and also where the device's Settings applications looks for app preferences. It is synced with iTunes or iCloud and handled by the **NSUserDefaults** class.  
    `tmp/` is where for any file written temporarily during the execution of the app. Files here will be deleted whenever the app is not running and obviously not backed up.  
 51. Error handling in **Swift** involves a method indicating a potential error with the **throws** keyword in its method signature. To call a method that can throw, the caller must implement a `do-catch` statement and use the **try** keyword before any method potentially throwing errors.
+
+## License
+
+    Copyright 2019 Soumik Barua
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
